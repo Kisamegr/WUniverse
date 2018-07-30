@@ -1,6 +1,9 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>NewGameWindow.qml</file>
+        <file>ShowOptionsPage.qml</file>
+        <file>images/back.svg</file>
+        <file>images/forward.svg</file>
+        <file>GameScreen.qml</file>
     </qresource>
 </RCC>

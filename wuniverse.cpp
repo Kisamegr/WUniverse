@@ -1,4 +1,7 @@
 #include "wuniverse.h"
+#include "gamesimulation.h"
+#include "show.h"
+
 #include <QQmlEngine>
 
 
@@ -13,10 +16,12 @@ QObject *factory(QQmlEngine *engine, QJSEngine *scriptEngine) {
 
 void WUniverse::registerData() {
   qmlRegisterSingletonType<WUniverse>("WUniverse", 1, 0, "WU", &factory);
+  qRegisterMetaType<Show *>("Show");
+  qmlRegisterType<Show> ("WUniverse", 1, 0, "Show");
+  qmlRegisterType<GameSimulation> ("WUniverse", 1, 0, "GameSimulation");
 }
 
-WUniverse::WUniverse()
-{
+WUniverse::WUniverse(QObject *parent) : QObject(parent) {
 
 }
 

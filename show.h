@@ -1,11 +1,43 @@
-#ifndef SHOW_H
-#define SHOW_H
+#ifndef GAMESESSION_H
+#define GAMESESSION_H
+
+#include <QObject>
+#include <QStandardItemModel>
+#include "character.h"
+
+class Show : public QObject {
+  Q_OBJECT
+
+  Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
+  Q_PROPERTY(QString companyName READ companyName WRITE setCompanyName NOTIFY companyNameChanged)
+
+  Q_PROPERTY(QStandardItemModel* roster READ roster CONSTANT)
 
 
-class Show
-{
+  QStandardItemModel* m_roster;
+  QString m_name;
+  QString m_companyName;
+
 public:
-  Show();
+  Show(QObject *parent = nullptr);
+  Show(const Show &other);
+  Show& operator=(const Show& other);
+
+  QStandardItemModel* roster();
+
+  QString name() const;
+
+  QString companyName() const;
+
+public slots:
+  void setName(QString name);
+  void setCompanyName(QString companyName);
+  void addCharacter(const Character &character);
+  void temp();
+
+signals:
+  void nameChanged(QString name);
+  void companyNameChanged(QString companyName);
 };
 
-#endif // SHOW_H
+#endif // GAMESESSION_H

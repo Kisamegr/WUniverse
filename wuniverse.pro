@@ -1,4 +1,4 @@
-QT += quick
+QT += quick quickcontrols2
 CONFIG += c++11
 
 # The following define makes your compiler emit warnings if you use
@@ -15,10 +15,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
     wuniverse.cpp \
-    gamesession.cpp \
-    show.cpp \
     character.cpp \
-    match.cpp
+    match.cpp \
+    show.cpp \
+    gamesimulation.cpp
 
 RESOURCES += qml.qrc
 
@@ -35,7 +35,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     wuniverse.h \
-    gamesession.h \
-    show.h \
     character.h \
-    match.h
+    match.h \
+    show.h \
+    gamesimulation.h

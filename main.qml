@@ -7,22 +7,24 @@ import WUniverse 1.0
 ApplicationWindow {
   id: app
   visible: true
-  width: 200
-  height: 100
+  width: 800
+  height: 640
   title: qsTr("Hello World")
 
+  StackView {
+    id: stackView
+    anchors.fill: parent
 
-  Button {
-    anchors.centerIn: parent
-    text: "New Game"
-    onClicked: {
-      var comp = Qt.createComponent("NewGameWindow.qml")
-      var obj = comp.createObject()
-      if(obj !== null) {
-        obj.show()
+    initialItem: Item {
+
+      Button {
+        anchors.centerIn: parent
+        text: qsTr("New Game")
+        onClicked: {
+          stackView.push("ShowOptionsPage.qml")
+        }
       }
-      else
-        console.log(comp.errorString())
     }
   }
+
 }

@@ -7,14 +7,12 @@ class WUniverse : public QObject {
   Q_OBJECT
 
 
-
-
 public:
-  WUniverse();
+  WUniverse(QObject *parent = nullptr);
+
 
   static WUniverse &shared();
   static void registerData();
-
-};
+ };
 
 #endif // WUNIVERSE_H
