@@ -21,7 +21,6 @@ class Show : public QObject {
 public:
   Show(QObject *parent = nullptr);
   Show(const Show &other);
-  Show& operator=(const Show& other);
 
   QStandardItemModel* roster();
 
@@ -33,6 +32,8 @@ public slots:
   void setName(QString name);
   void setCompanyName(QString companyName);
   void addCharacter(const Character &character);
+  void addNewCharacter();
+  void removeCharacter(int index);
   void temp();
 
 signals:

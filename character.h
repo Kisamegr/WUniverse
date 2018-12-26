@@ -29,11 +29,17 @@ public:
 
   Q_ENUM(CharacterRoles)
 
+  Character(QObject *parent = nullptr);
   Character(const QString name, int team = 0, QObject *parent = nullptr);
-  QString name() const;
-  int team() const;
+  ~Character() = default;
+  Character(const Character &other);
+  Character& operator=(const Character &other);
+  bool operator==(const Character &other) const;
+
 
 public slots:
+  QString name() const;
+  int team() const;
   void setName(QString name);
   void setTeam(int team);
 
@@ -41,5 +47,7 @@ signals:
   void nameChanged(QString name);
   void teamChanged(int team);
 };
+
+Q_DECLARE_METATYPE(Character*)
 
 #endif // CHARACTER_H

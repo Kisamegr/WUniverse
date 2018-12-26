@@ -18,7 +18,8 @@ SOURCES += \
     character.cpp \
     match.cpp \
     show.cpp \
-    gamesimulation.cpp
+    gamesimulation.cpp \
+    matchlistmodel.cpp
 
 RESOURCES += qml.qrc
 
@@ -38,4 +39,5 @@ HEADERS += \
     character.h \
     match.h \
     show.h \
-    gamesimulation.h
+    gamesimulation.h \
+    matchlistmodel.h

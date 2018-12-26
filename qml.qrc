@@ -5,5 +5,9 @@
         <file>images/back.svg</file>
         <file>images/forward.svg</file>
         <file>GameScreen.qml</file>
+        <file>NextRoundButton.qml</file>
+        <file>images/wuniverse_logo.png</file>
+        <file>images/x.svg</file>
+        <file>images/plus.svg</file>
     </qresource>
 </RCC>

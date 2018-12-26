@@ -5,11 +5,13 @@ Show::Show(QObject *parent) : QObject(parent),
   m_roster(new QStandardItemModel(this)) {
   m_roster->setItemRoleNames(Character::roleNames());
 
-  m_name = "";
+  m_name = "a";
   m_companyName = "";
-
-  addCharacter(Character("Man 1"));
-  addCharacter(Character("Man 2", 1));
+  addNewCharacter();
+  addNewCharacter();
+  addNewCharacter();
+  addNewCharacter();
+  addNewCharacter();
 }
 
 Show::Show(const Show &other) {
@@ -20,18 +22,6 @@ Show::Show(const Show &other) {
     m_roster->appendRow(other.m_roster->item(i)->clone());
 }
 
-Show &Show::operator=(const Show &other) {
-//  if (this != &other) { // self-assignment check expected
-//    m_name = other.m_name;
-//    qDebug() << "MIDDLE ONE" << other.m_name;
-
-//    m_companyName = other.m_companyName;
-//    m_roster->clear();
-//    for (int i=0; i<other.m_roster->rowCount(); i++)
-//      m_roster->appendRow(other.m_roster->item(i)->clone());
-//  }
-  return *this;
-}
 
 QStandardItemModel *Show::roster() {
   return m_roster;
@@ -67,6 +57,16 @@ void Show::addCharacter(const Character &character) {
   item->setData(character.name(), Character::CharacterName);
   item->setData(character.team(), Character::CharacterTeam);
   m_roster->appendRow(item);
+}
+
+void Show::addNewCharacter() {
+  QStandardItem *item = new QStandardItem();
+  item->setData(QString("Mpampoglas %1").arg(m_roster->rowCount() + 1), Character::CharacterName);
+  m_roster->appendRow(item);
+}
+
+void Show::removeCharacter(int index) {
+  m_roster->removeRow(index);
 }
 
 void Show::temp()

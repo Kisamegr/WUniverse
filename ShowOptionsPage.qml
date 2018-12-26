@@ -1,16 +1,16 @@
 import QtQuick 2.11
 import QtQuick.Window 2.11
-import QtQuick.Controls 2.0
+import QtQuick.Controls 2.4
 import QtQuick.Layouts 1.2
 import QtQuick.Controls.Material 2.4
+import QtGraphicalEffects 1.0
 
 import WUniverse 1.0
 
 Item {
+  id: root
+  property Show show
 
-  Show {
-    id: show
-  }
 
   ColumnLayout {
     anchors.fill: parent
@@ -29,6 +29,8 @@ Item {
         property real iconSize: 24
 
         ToolButton {
+          Layout.minimumWidth: 100
+
           contentItem: RowLayout {
             Image {
               source: "qrc:/images/back.svg"
@@ -39,6 +41,8 @@ Item {
               text: qsTr("Back")
             }
           }
+
+          onClicked: stackView.pop()
         }
 
         TextField {
@@ -50,28 +54,15 @@ Item {
         }
 
         ToolButton {
-          contentItem: RowLayout {
-            Label {
-              text: qsTr("Next")
-            }
-
-            Image {
-              source: "qrc:/images/forward.svg"
-              sourceSize: Qt.size(header.iconSize, header.iconSize)
-            }
-
-
-          }
-
+          Layout.minimumWidth: 100
+          text: qsTr("Start")
+          enabled: show && show.name != "" && rosterView.count > 0
           onClicked: {
-            var comp = Qt.createComponent("GameScreen.qml")
-            var obj = comp.createObject(app, {"activeShow" : show})
-            obj.show()
+            app.showNewGameScreen(root.show)
+            stackView.pop()
           }
-
         }
       }
-
     }
 
 
@@ -99,48 +90,60 @@ Item {
           Material.elevation: 2
           Layout.fillHeight: true
           Layout.fillWidth: true
+          padding: 3
 
           ListView {
             id: rosterView
             anchors.fill: parent
             clip: true
+            spacing: 0
 
             model: show.roster
 
 
-            delegate: RowLayout {
+            footer: ToolButton {
               width: rosterView.width
+              height: 20
+              padding: 2
+              icon.source: "qrc:/images/plus.svg"
 
-              TextField {
-                Layout.fillWidth: true
-                text: name
-                readOnly: false
-                onEditingFinished: name = text
-              }
-
-              SpinBox {
-                value: team
-                from: 0
-                to: 10
-
-                onValueChanged: team = value
-              }
+              onClicked: show.addNewCharacter()
             }
-          }
-        }
+
+            delegate: ItemDelegate {
+              width: rosterView.width
+              leftPadding: 8
+              rightPadding: 2
+
+              contentItem: RowLayout {
+                spacing: 10
+                TextField {
+                  Layout.fillWidth: true
+                  text: name
+                  readOnly: false
+                  onEditingFinished: name = text
+                }
 
 
+                ComboBox {
+                  model: 10
+                  Layout.preferredWidth: 65
 
-      }
+                }
 
-    }
+                ToolButton {
+                  Layout.preferredWidth: 24
+                  Layout.preferredHeight: 24
+                  icon.source: "qrc:/images/x.svg"
 
+                  onClicked: show.removeCharacter(index)
+                }
 
-
-
-
-    Item {
-      Layout.fillHeight: true
-    }
+              }// RowLayout
+            }
+          } // ListView
+        } // Pane
+      } // ColumnLayout
+    } // Pane
   }
 }
